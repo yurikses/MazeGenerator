@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\yurik\source\repos\MazeSystem\MazeSystem\build\CMakeFiles\b4e24a1224bd6a91a8576f097f1626c4\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{5552CCC2-ADE3-3E26-B9F8-2C07E9333576}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
