@@ -1,0 +1,56 @@
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran compiled modules
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# CMake build outputs
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+Makefile
+CTestTestfile.cmake
+_CPack_Packages/
+CPackConfig.cmake
+CPackSourceConfig.cmake
+
+# Common build directory names
+build/
+build*/
+out/
+bin/
+
+# IDE specific (optional but recommended)
+.vscode/
+.idea/
+*.swp
+*.swo
