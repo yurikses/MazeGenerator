@@ -1,0 +1,46 @@
+# Build directories
+/build/
+/cmake-build-*/
+/out/
+
+# CMake generated files
+/CMakeFiles/
+/CMakeCache.txt
+/cmake_install.cmake
+/compile_commands.json
+/Makefile
+/install_manifest.txt
+/CTestTestfile.cmake
+/Testing/
+
+# IDE / CMake tools
+/.idea/
+/.vscode/
+
+# Build artifacts
+*.o
+*.obj
+*.lo
+*.slo
+*.gch
+*.pch
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+*.exe
+*.out
+*.app
+*.pdb
+
+# SFML / ImGui examples cache and temp
+*.ilk
+*.exp
+*.idb
+*.ipch
+*.tlog
+*.lastbuildstate
+
+# Logs
+*.log
