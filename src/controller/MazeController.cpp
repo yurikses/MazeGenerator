@@ -21,9 +21,7 @@ Grid saveableGrid(Grid grid) {
 }
 } // namespace
 
-MazeController::MazeController(MazeStorage& storage) : storage_(storage) {
-    generateMaze(AlgorithmType::DFSGenerator, 31, 31);
-}
+MazeController::MazeController(MazeStorage& storage) : storage_(storage) {}
 
 void MazeController::setAccessContext(std::string userName, UserRole role, bool blocked) {
     userName_ = std::move(userName);

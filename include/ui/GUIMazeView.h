@@ -13,11 +13,14 @@ public:
     void draw(sf::RenderWindow& window,
               const Grid& grid,
               Point start,
+              bool hasStart,
               Point finish,
+              bool hasFinish,
               const std::vector<Point>& visited,
               std::size_t visitedLimit,
               const std::vector<Point>& path,
-              std::size_t pathLimit) const;
+              std::size_t pathLimit,
+              bool revealGeneration) const;
 
     std::optional<Point> cellAt(sf::Vector2i pixel, const Grid& grid) const;
 

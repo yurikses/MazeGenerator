@@ -10,11 +10,14 @@ void GUIMazeView::setViewport(sf::FloatRect viewport) {
 void GUIMazeView::draw(sf::RenderWindow& window,
                        const Grid& grid,
                        Point start,
+                       bool hasStart,
                        Point finish,
+                       bool hasFinish,
                        const std::vector<Point>& visited,
                        std::size_t visitedLimit,
                        const std::vector<Point>& path,
-                       std::size_t pathLimit) const {
+                       std::size_t pathLimit,
+                       bool revealGeneration) const {
     if (grid.empty()) {
         return;
     }
@@ -33,11 +36,31 @@ void GUIMazeView::draw(sf::RenderWindow& window,
     panel.setFillColor(sf::Color(18, 23, 31));
     window.draw(panel);
 
+    std::vector<std::vector<bool>> revealed;
+    if (revealGeneration) {
+        revealed.assign(static_cast<std::size_t>(gridHeight(grid)),
+                        std::vector<bool>(static_cast<std::size_t>(gridWidth(grid)), false));
+        const std::size_t visibleVisited = std::min(visitedLimit, visited.size());
+        for (std::size_t index = 0; index < visibleVisited; ++index) {
+            const Point point = visited[index];
+            if (isInside(grid, point)) {
+                revealed[static_cast<std::size_t>(point.y)][static_cast<std::size_t>(point.x)] = true;
+            }
+        }
+    }
+
     for (int y = 0; y < gridHeight(grid); ++y) {
         for (int x = 0; x < gridWidth(grid); ++x) {
             CellState state = grid[y][x];
             if (state == CellState::Visited || state == CellState::Path) {
                 state = CellState::Passage;
+            }
+            if ((state == CellState::Start && !hasStart) || (state == CellState::Finish && !hasFinish)) {
+                state = CellState::Passage;
+            }
+            if (revealGeneration && state != CellState::Wall &&
+                !revealed[static_cast<std::size_t>(y)][static_cast<std::size_t>(x)]) {
+                state = CellState::Wall;
             }
 
             cell.setPosition({layout.origin.x + static_cast<float>(x) * layout.cellSize,
@@ -67,8 +90,12 @@ void GUIMazeView::draw(sf::RenderWindow& window,
         drawOverlay(path[index], baseColor(CellState::Path));
     }
 
-    drawOverlay(start, baseColor(CellState::Start));
-    drawOverlay(finish, baseColor(CellState::Finish));
+    if (hasStart) {
+        drawOverlay(start, baseColor(CellState::Start));
+    }
+    if (hasFinish) {
+        drawOverlay(finish, baseColor(CellState::Finish));
+    }
 }
 
 std::optional<Point> GUIMazeView::cellAt(sf::Vector2i pixel, const Grid& grid) const {

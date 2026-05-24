@@ -106,6 +106,7 @@ AlgorithmResult KruskalGenerator::execute(Grid& maze, const Point&, const Point&
 
         maze[edge.between.y][edge.between.x] = CellState::Passage;
         result.visited.push_back(edge.from);
+        result.visited.push_back(edge.between);
         result.visited.push_back(edge.to);
         notify({edge.to, result.visited, {}, "Kruskal generation"});
     }

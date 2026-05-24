@@ -80,6 +80,8 @@ struct UserAccount {
     std::string name;
     UserRole role{UserRole::Guest};
     bool blocked{false};
+    std::string displayName;
+    std::string password;
 };
 
 using Grid = std::vector<std::vector<CellState>>;

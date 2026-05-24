@@ -34,12 +34,12 @@ AlgorithmResult DFSGenerator::execute(Grid& maze, const Point&, const Point&) {
     std::vector<Point> stack;
     stack.push_back({1, 1});
     maze[1][1] = CellState::Passage;
+    result.visited.push_back({1, 1});
 
     const std::array<Point, 4> directions{{{2, 0}, {-2, 0}, {0, 2}, {0, -2}}};
 
     while (!stack.empty()) {
         const Point current = stack.back();
-        result.visited.push_back(current);
 
         std::vector<Point> candidates;
         for (const Point direction : directions) {
@@ -61,6 +61,8 @@ AlgorithmResult DFSGenerator::execute(Grid& maze, const Point&, const Point&) {
         const Point between{(current.x + next.x) / 2, (current.y + next.y) / 2};
         maze[between.y][between.x] = CellState::Passage;
         maze[next.y][next.x] = CellState::Passage;
+        result.visited.push_back(between);
+        result.visited.push_back(next);
         stack.push_back(next);
     }
 

@@ -1,17 +1,23 @@
 # Maze Generator & Path Finder
 
-C++ desktop application for generating mazes and visualizing path search.
-
 ## Features
 
+- Authorization screen with sign in, guest mode, and registration.
+- User tab for display name/password changes and logout.
+- Generation tab for generator/pathfinder selection, maze size, animation settings, save options, start/finish selection, generation, and path search.
+- Mazes tab for opening saved mazes.
+- Users tab for admin account moderation.
 - Maze generation: DFS and Kruskal.
 - Path search: BFS and A*.
 - SFML rendering with ImGui controls.
-- Start and finish selection by mouse click or coordinate input.
-- Animated visualization of visited cells and final path.
-- Roles: Guest, User, Admin.
 - SQLite storage for saved and published mazes.
 - Action logging through a singleton logger.
+
+Demo accounts:
+
+- `student` / `student`
+- `admin` / `admin`
+- new accounts can be created from the `Register` tab on the authorization screen.
 
 ## Build
 
