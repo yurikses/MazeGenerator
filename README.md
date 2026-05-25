@@ -27,6 +27,10 @@ cmake --build build --config Debug
 ctest --test-dir build -C Debug --output-on-failure
 ```
 
+Unit tests are built into `build/tests/Debug`.
+Scenario programs are built into `build/tests/scenarios/Debug`.
+The scenario list is documented in `tests/scenarios/SCENARIOS.md`.
+
 ## Run
 
 ```powershell

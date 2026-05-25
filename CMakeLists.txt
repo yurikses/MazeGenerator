@@ -14,6 +14,7 @@ if(MSVC)
 endif()
 
 include(FetchContent)
+include(CTest)
 cmake_policy(SET CMP0135 NEW)
 
 set(SFML_VERSION 3.0.1)
@@ -129,10 +130,7 @@ add_custom_command(TARGET MazeApp POST_BUILD
     COMMENT "Copying resources to output directory"
 )
 
-option(BUILD_TESTING "Build unit tests" ON)
 if(BUILD_TESTING)
-    enable_testing()
-
     FetchContent_Declare(
         googletest
         GIT_REPOSITORY https://github.com/google/googletest.git
@@ -145,13 +143,38 @@ if(BUILD_TESTING)
     add_executable(MazeTests
         tests/test_algorithms.cpp
         tests/test_factory.cpp
+        tests/test_observer.cpp
+        tests/test_storage.cpp
+        tests/test_controller.cpp
+        tests/test_gui_view.cpp
+        tests/test_logger.cpp
+        tests/test_types.cpp
         tests/test_roles.cpp
+        src/ui/GUIMazeView.cpp
     )
-    target_link_libraries(MazeTests PRIVATE MazeCore GTest::gtest_main)
+    target_link_libraries(MazeTests PRIVATE MazeCore GTest::gtest_main sfml-graphics sfml-window sfml-system)
     target_include_directories(MazeTests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+    set_target_properties(MazeTests PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests
+    )
 
     include(GoogleTest)
     gtest_discover_tests(MazeTests)
+
+    function(add_maze_scenario target source)
+        add_executable(${target} ${source})
+        target_link_libraries(${target} PRIVATE MazeCore)
+        target_include_directories(${target} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+        set_target_properties(${target} PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/tests/scenarios
+        )
+        add_test(NAME ${target} COMMAND ${target})
+    endfunction()
+
+    add_maze_scenario(ScenarioUserGeneration tests/scenarios/scenario_user_generation.cpp)
+    add_maze_scenario(ScenarioGuestView tests/scenarios/scenario_guest_view.cpp)
+    add_maze_scenario(ScenarioAdminModeration tests/scenarios/scenario_admin_moderation.cpp)
+    add_maze_scenario(ScenarioAlgorithmComparison tests/scenarios/scenario_algorithm_comparison.cpp)
 endif()
 
 message(STATUS "MazeProject configured")
